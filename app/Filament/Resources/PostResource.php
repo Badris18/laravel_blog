@@ -26,9 +26,19 @@ class PostResource extends Resource
                 Forms\Components\TextInput::make('title')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('context')
+                Forms\Components\Textarea::make('content')
                     ->required()
-                    ->maxLength(255),
+                    ->columnSpanFull(),
+                Forms\Components\Select::make('tags')
+                    ->preload()
+                    ->searchable()
+                    ->multiple()
+                    ->relationship('tags', 'name'), // Specify the relationship and the display column
+                // Forms\Components\Repeater::make('tags')
+                //     ->relationship()
+                //     ->schema([
+                //         Forms\Components\TextInput::make('name')->required(),
+                //     ])
             ]);
     }
 
@@ -37,8 +47,6 @@ class PostResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('title')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('context')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
