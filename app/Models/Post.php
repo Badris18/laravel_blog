@@ -16,7 +16,7 @@ class Post extends Model
 
      public function tags()
     {
-        return $this->ManyToMany(Tag::class, 'taggable');
+        return $this->belongsToMany(Tag::class, 'post_tag');
     }
     }
 
